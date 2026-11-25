@@ -1,0 +1,958 @@
+HTML
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#075238">
+<title>Growth - Student Learning App</title>
+
+<style>
+:root {
+  --green:#075238;
+  --dark:#063d2c;
+  --light:#e9ffb9;
+  --lime:#c9f36a;
+  --white:#ffffff;
+  --bg:#f7faf7;
+  --text:#123d2c;
+  --muted:#78877d;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body {
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:100px;
+}
+
+button {
+  cursor:pointer;
+}
+
+/* HEADER */
+
+header {
+  background:linear-gradient(140deg,#063d2c,#08734a);
+  color:white;
+  padding:22px 20px 28px;
+  border-radius:0 0 30px 30px;
+  position:relative;
+  overflow:hidden;
+}
+
+header:after {
+  content:"";
+  position:absolute;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  background:#ffffff10;
+  right:-90px;
+  top:-110px;
+}
+
+.top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:relative;
+  z-index:1;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.logo-icon {
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  background:var(--lime);
+  color:var(--green);
+  border-radius:15px;
+  font-size:29px;
+  font-weight:bold;
+}
+
+.profile {
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  background:#ffffff25;
+  border-radius:50%;
+  font-size:22px;
+}
+
+.tagline {
+  font-size:12px;
+  margin-top:3px;
+  color:#d6f4df;
+}
+
+.welcome {
+  margin-top:28px;
+  position:relative;
+  z-index:1;
+}
+
+.welcome small {
+  color:#d8f2df;
+  font-size:13px;
+}
+
+.welcome h1 {
+  font-size:30px;
+  line-height:1.2;
+  margin:12px 0;
+}
+
+.welcome h1 span {
+  color:var(--lime);
+}
+
+.welcome p {
+  font-size:14px;
+  line-height:1.5;
+  color:#e1f3e7;
+}
+
+.hero-art {
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  margin-top:-12px;
+  height:90px;
+  padding-right:10px;
+}
+
+.books-art {
+  font-size:66px;
+  filter:drop-shadow(0 7px 5px #001f1640);
+}
+
+/* AI CARD */
+
+.ai-card {
+  margin:20px 15px 25px;
+  padding:17px;
+  background:linear-gradient(120deg,#d9ff91,#efffca);
+  border-radius:25px;
+  box-shadow:0 7px 18px #174b3915;
+}
+
+.ai-top {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.robot {
+  width:65px;
+  height:65px;
+  background:#ffffff;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  font-size:39px;
+  box-shadow:0 5px 12px #174b3920;
+}
+
+.ai-top h2 {
+  font-size:21px;
+  color:var(--green);
+}
+
+.ai-top p {
+  font-size:12px;
+  line-height:1.5;
+  margin-top:5px;
+  color:#335d43;
+}
+
+.ai-input {
+  display:flex;
+  gap:7px;
+  background:white;
+  padding:6px;
+  border-radius:40px;
+}
+
+.ai-input input {
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  padding:12px;
+  font-size:13px;
+  background:transparent;
+}
+
+.ai-input button {
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:50%;
+  background:var(--green);
+  color:white;
+  font-size:22px;
+}
+
+/* MAIN */
+
+main {
+  padding:0 17px;
+}
+
+.page {
+  display:none;
+}
+
+.page.active {
+  display:block;
+}
+
+.section-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.section-title h2 {
+  font-size:20px;
+  color:var(--green);
+}
+
+.view-all {
+  background:#e5f8ca;
+  color:var(--green);
+  padding:10px 14px;
+  border-radius:30px;
+  border:0;
+  font-weight:bold;
+}
+
+/* SUBJECTS */
+
+.subject-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+
+.subject {
+  min-height:125px;
+  border-radius:21px;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  border:1px solid #ffffff;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.subject:active {
+  transform:scale(.96);
+}
+
+.subject .emoji {
+  font-size:39px;
+  margin-bottom:9px;
+}
+
+.subject h3 {
+  font-size:14px;
+  color:#153d2e;
+}
+
+.subject p {
+  font-size:10px;
+  color:#526c5c;
+  margin-top:5px;
+}
+
+.math {background:#dcefff;}
+.bio {background:#ddf8d2;}
+.physics {background:#f0dfff;}
+.social {background:#ffedbd;}
+.english {background:#ffe0e4;}
+.other {background:#d9f8ed;}
+
+/* FEATURES */
+
+.feature-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:23px;
+}
+
+.feature {
+  padding:17px 12px;
+  min-height:125px;
+  border-radius:20px;
+  background:white;
+  border:1px solid #e5eee5;
+  cursor:pointer;
+}
+
+.feature:first-child {
+  background:linear-gradient(135deg,#087447,#06442f);
+  color:white;
+}
+
+.feature-icon {
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.feature h3 {
+  font-size:14px;
+}
+
+.feature p {
+  font-size:11px;
+  line-height:1.5;
+  margin-top:6px;
+  opacity:.8;
+}
+
+/* ANSWER */
+
+.answer-box {
+  display:none;
+  background:#edf8ed;
+  border:1px solid #d5e9d6;
+  border-radius:15px;
+  padding:15px;
+  margin-top:13px;
+  font-size:13px;
+  line-height:1.7;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+textarea {
+  width:100%;
+  min-height:100px;
+  resize:vertical;
+  border:1px solid #dce8dd;
+  background:#fbfdfb;
+  border-radius:15px;
+  padding:13px;
+  font-size:14px;
+  outline:none;
+}
+
+textarea:focus {
+  border-color:var(--green);
+}
+
+select {
+  width:100%;
+  padding:13px;
+  border:1px solid #dce8dd;
+  background:white;
+  border-radius:13px;
+  margin-bottom:12px;
+  outline:none;
+  color:var(--text);
+}
+
+.primary-btn {
+  width:100%;
+  border:0;
+  border-radius:14px;
+  background:var(--green);
+  color:white;
+  padding:15px;
+  font-weight:bold;
+  font-size:14px;
+  margin-top:12px;
+}
+
+.panel {
+  background:white;
+  padding:19px;
+  border-radius:20px;
+  margin-bottom:15px;
+  border:1px solid #e7eee7;
+}
+
+.panel h3 {
+  margin-bottom:10px;
+}
+
+.panel p {
+  font-size:13px;
+  line-height:1.6;
+  color:var(--muted);
+}
+
+.quiz-option {
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:1px solid #dce8dd;
+  background:white;
+  border-radius:12px;
+  text-align:left;
+  color:var(--text);
+}
+
+.progress-bar {
+  height:10px;
+  background:#e5eee5;
+  border-radius:20px;
+  margin:15px 0;
+  overflow:hidden;
+}
+
+.progress-fill {
+  height:100%;
+  width:0%;
+  background:#15965c;
+  transition:width .3s;
+}
+
+/* NAVIGATION */
+
+nav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:white;
+  padding:12px 2px calc(12px + env(safe-area-inset-bottom));
+  box-shadow:0 -5px 20px #123d2c12;
+  border-radius:22px 22px 0 0;
+  z-index:20;
+}
+
+nav button {
+  background:none;
+  border:0;
+  color:#89958d;
+  font-size:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  min-width:52px;
+}
+
+nav button span {
+  font-size:21px;
+}
+
+nav button.active {
+  color:var(--green);
+  font-weight:bold;
+}
+
+.small-note {
+  font-size:11px;
+  color:var(--muted);
+  margin-top:12px;
+  line-height:1.5;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="top">
+    <div>
+      <div class="logo">
+        <div class="logo-icon">G</div>
+        Growth
+      </div>
+      <p class="tagline">Learn • Practice • Grow</p>
+    </div>
+    <div class="profile">👤</div>
+  </div>
+
+  <div class="welcome">
+    <small>HELLO, STUDENT! 👋</small>
+    <h1>Learn something<br><span>amazing today!</span></h1>
+    <p>Your journey to knowledge<br>starts here.</p>
+  </div>
+
+  <div class="hero-art">
+    <div class="books-art">🌱 🎓 📚</div>
+  </div>
+</header>
+
+<!-- AI SECTION -->
+
+<div class="ai-card">
+  <div class="ai-top">
+    <div class="robot">🤖</div>
+    <div>
+      <h2>Ask Growth AI</h2>
+      <p>Get clear, step-by-step<br>answers from your textbook!</p>
+    </div>
+  </div>
+
+  <div class="ai-input">
+    <input id="quickQuestion" placeholder="Type your question...">
+    <button onclick="quickAsk()">➜</button>
+  </div>
+</div>
+
+<main>
+
+<!-- HOME PAGE -->
+
+<section class="page active" id="home">
+
+  <div class="section-title">
+    <h2>📚 Explore Subjects</h2>
+    <button class="view-all" onclick="showPage('subjects')">
+      View All →
+    </button>
+  </div>
+
+  <div class="subject-grid">
+
+    <div class="subject math" onclick="chooseSubject('Mathematics')">
+      <div class="emoji">📐</div>
+      <h3>Mathematics</h3>
+      <p>Learn step by step</p>
+    </div>
+
+    <div class="subject bio" onclick="chooseSubject('Biology')">
+      <div class="emoji">🧬</div>
+      <h3>Biology</h3>
+      <p>Discover life</p>
+    </div>
+
+    <div class="subject physics" onclick="chooseSubject('Physical Science')">
+      <div class="emoji">⚛️</div>
+      <h3>Physical Science</h3>
+      <p>Explore science</p>
+    </div>
+
+    <div class="subject social" onclick="chooseSubject('Social Studies')">
+      <div class="emoji">🌍</div>
+      <h3>Social Studies</h3>
+      <p>Explore the world</p>
+    </div>
+
+    <div class="subject english" onclick="chooseSubject('English')">
+      <div class="emoji">📖</div>
+      <h3>English</h3>
+      <p>Improve your language</p>
+    </div>
+
+    <div class="subject other" onclick="chooseSubject('Other Subjects')">
+      <div class="emoji">🎨</div>
+      <h3>Other Subjects</h3>
+      <p>Discover more</p>
+    </div>
+
+  </div>
+
+  <div class="feature-grid">
+
+    <div class="feature" onclick="showPage('quiz')">
+      <div class="feature-icon">🏆</div>
+      <h3>Practice Quiz</h3>
+      <p>Test your knowledge and improve!</p>
+    </div>
+
+    <div class="feature" onclick="showPage('progress')">
+      <div class="feature-icon">📊</div>
+      <h3>Track Progress</h3>
+      <p>See your learning journey!</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SUBJECTS PAGE -->
+
+<section class="page" id="subjects">
+
+  <div class="section-title">
+    <h2>All Subjects 📚</h2>
+  </div>
+
+  <div class="panel">
+    <h3>Choose Your Class</h3>
+    <select id="classSelect">
+      <option>Class 6</option>
+      <option>Class 7</option>
+      <option selected>Class 8</option>
+      <option>Class 9</option>
+      <option>Class 10</option>
+      <option>Class 11</option>
+      <option>Class 12</option>
+    </select>
+    <p>Select your class and subject to begin learning.</p>
+  </div>
+
+  <div class="subject-grid">
+    <div class="subject math" onclick="chooseSubject('Mathematics')">
+      <div class="emoji">📐</div>
+      <h3>Mathematics</h3>
+    </div>
+
+    <div class="subject bio" onclick="chooseSubject('Biology')">
+      <div class="emoji">🧬</div>
+      <h3>Biology</h3>
+    </div>
+
+    <div class="subject physics" onclick="chooseSubject('Physical Science')">
+      <div class="emoji">⚛️</div>
+      <h3>Physical Science</h3>
+    </div>
+
+    <div class="subject social" onclick="chooseSubject('Social Studies')">
+      <div class="emoji">🌍</div>
+      <h3>Social Studies</h3>
+    </div>
+
+    <div class="subject english" onclick="chooseSubject('English')">
+      <div class="emoji">📖</div>
+      <h3>English</h3>
+    </div>
+
+    <div class="subject other" onclick="chooseSubject('Other Subjects')">
+      <div class="emoji">🎨</div>
+      <h3>Other Subjects</h3>
+    </div>
+  </div>
+
+</section>
+
+<!-- PRACTICE PAGE -->
+
+<section class="page" id="quiz">
+
+  <div class="section-title">
+    <h2>Practice Zone 🧠</h2>
+  </div>
+
+  <div class="panel">
+    <div class="feature-icon">🎯</div>
+    <h3>Test Your Knowledge</h3>
+    <p>Try a demo question and check your understanding.</p>
+    <button class="primary-btn" onclick="startQuiz()">
+      Start Quiz →
+    </button>
+  </div>
+
+  <div class="panel" id="quizArea">
+    <h3>Demo Quiz</h3>
+    <p>Which planet is known as the Red Planet?</p>
+
+    <button class="quiz-option" onclick="checkQuiz(this,false)">
+      A. Venus
+    </button>
+
+    <button class="quiz-option" onclick="checkQuiz(this,true)">
+      B. Mars
+    </button>
+
+    <button class="quiz-option" onclick="checkQuiz(this,false)">
+      C. Jupiter
+    </button>
+
+    <p id="quizResult" style="margin-top:12px"></p>
+  </div>
+
+</section>
+
+<!-- PROGRESS PAGE -->
+
+<section class="page" id="progress">
+
+  <div class="section-title">
+    <h2>My Progress 📊</h2>
+  </div>
+
+  <div class="panel">
+    <div class="feature-icon">🌱</div>
+    <h3>Your Learning Journey</h3>
+    <p>Complete learning activities to build your progress.</p>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <p id="progressText">0% completed</p>
+  </div>
+
+  <div class="panel">
+    <h3>🏆 Achievements</h3>
+    <p>Complete quizzes and activities to earn achievements.</p>
+  </div>
+
+  <div class="panel">
+    <h3>📚 Learning Activity</h3>
+    <p id="activityText">Your learning activities will appear here.</p>
+  </div>
+
+</section>
+
+<!-- PROFILE PAGE -->
+
+<section class="page" id="profile">
+
+  <div class="section-title">
+    <h2>My Profile 👤</h2>
+  </div>
+
+  <div class="panel">
+    <div class="feature-icon">🌿</div>
+    <h3>Welcome to Growth</h3>
+    <p>Your personal student learning space.</p>
+  </div>
+
+  <div class="panel">
+    <h3>Learning Preferences</h3>
+
+    <p>Choose Language</p>
+    <select id="language">
+      <option>English</option>
+      <option>Telugu</option>
+      <option>Hindi</option>
+      <option>Tamil</option>
+    </select>
+
+    <p>Choose Class</p>
+    <select>
+      <option>Class 6</option>
+      <option>Class 7</option>
+      <option selected>Class 8</option>
+      <option>Class 9</option>
+      <option>Class 10</option>
+      <option>Class 11</option>
+      <option>Class 12</option>
+    </select>
+  </div>
+
+  <div class="panel">
+    <h3>About Growth 🌱</h3>
+    <p>Growth makes learning easier, clearer and more enjoyable.</p>
+  </div>
+
+</section>
+
+</main>
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav>
+
+  <button class="active" onclick="showPage('home',this)">
+    <span>⌂</span>Home
+  </button>
+
+  <button onclick="showPage('subjects',this)">
+    <span>📚</span>Subjects
+  </button>
+
+  <button onclick="showPage('quiz',this)">
+    <span>🧠</span>Practice
+  </button>
+
+  <button onclick="showPage('progress',this)">
+    <span>📊</span>Progress
+  </button>
+
+  <button onclick="showPage('profile',this)">
+    <span>👤</span>Profile
+  </button>
+
+</nav>
+
+<script>
+
+/* NAVIGATION */
+
+function showPage(page,button) {
+
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+  });
+
+  document.getElementById(page).classList.add('active');
+
+  document.querySelectorAll('nav button').forEach(b=>{
+    b.classList.remove('active');
+  });
+
+  const index={
+    home:0,
+    subjects:1,
+    quiz:2,
+    progress:3,
+    profile:4
+  }[page];
+
+  document.querySelectorAll('nav button')[index]
+    .classList.add('active');
+
+  window.scrollTo(0,0);
+}
+
+/* SUBJECT SELECTION */
+
+function chooseSubject(subject) {
+
+  document.getElementById('subjectSelect').value=subject;
+
+  showPage('home');
+
+  document.querySelector('.ai-card')
+    .scrollIntoView({behavior:'smooth'});
+
+  document.getElementById('question').focus();
+}
+
+/* ASK QUESTION */
+
+function quickAsk() {
+
+  const question=document.getElementById('quickQuestion')
+    .value.trim();
+
+  if(!question) {
+    alert('Please type your question.');
+    return;
+  }
+
+  showPage('home');
+
+  document.getElementById('question').value=question;
+
+  document.querySelector('.ai-card')
+    .scrollIntoView({behavior:'smooth'});
+}
+
+function askQuestion() {
+
+  const question=document.getElementById('question')
+    .value.trim();
+
+  const subject=document.getElementById('subjectSelect').value;
+
+  const answer=document.getElementById('answer');
+
+  if(!question) {
+    alert('Please enter your question.');
+    return;
+  }
+
+  if(subject==='Choose Subject') {
+    alert('Please select a subject.');
+    return;
+  }
+
+  answer.style.display='block';
+
+  answer.textContent=
+    'Your question is ready for AI processing.\\n\\n'+
+    'Subject: '+subject+'\\n'+
+    'Question: '+question+'\\n\\n'+
+    'AI service is not connected yet. Connect a suitable AI service to receive real textbook-based answers.';
+
+  answer.scrollIntoView({behavior:'smooth'});
+}
+
+/* QUIZ */
+
+let quizCompleted=false;
+
+function startQuiz() {
+
+  document.getElementById('quizResult').textContent='';
+
+  document.querySelectorAll('.quiz-option').forEach(b=>{
+    b.disabled=false;
+  });
+
+  document.getElementById('quizArea')
+    .scrollIntoView({behavior:'smooth'});
+}
+
+function checkQuiz(button,correct) {
+
+  const result=document.getElementById('quizResult');
+
+  if(quizCompleted) return;
+
+  if(correct) {
+
+    result.textContent='Correct! Great work! 🎉';
+
+    result.style.color='#087447';
+
+    quizCompleted=true;
+
+    document.querySelectorAll('.quiz-option').forEach(b=>{
+      b.disabled=true;
+    });
+
+    updateProgress();
+
+  } else {
+
+    result.textContent='Try again! You can do it. 🌱';
+
+    result.style.color='#bd583e';
+  }
+}
+
+/* PROGRESS */
+
+let completed=0;
+
+function updateProgress() {
+
+  completed++;
+
+  const percentage=Math.min(completed*10,100);
+
+  document.getElementById('progressFill')
+    .style.width=percentage+'%';
+
+  document.getElementById('progressText')
+    .textContent=percentage+'% completed';
+
+  document.getElementById('activityText')
+    .textContent=completed+' quiz completed. Keep learning!';
+}
+
+</script>
+
+</body>
+</html>
